@@ -1,5 +1,5 @@
 #####
-#problematic cleaning
+#problematic cleaning of dataBA2
 #campione del dataset contenente solo il cliente con id = 13
 dataBA2$CodCliente==13
 sum(dataBA2$CodCliente==13)
@@ -34,7 +34,7 @@ df
 #Se si assume che siano tutti gli ingressi siano stati fatti da persone diverse
 #e non siano dei semplici record duplicati, con l'ipotesi che il primo ad utilizzare
 #l'abbonamento sia il possessore effettivo
-#si ha un totale di 125945 ingressi fatti dal vero possessore sui 545085 ingressi registrati
+#si ha un totale di 487198 ingressi fatti dal vero possessore sui 545085 ingressi registrati
 
 #per rimuovere i "duplicati" ho usato la seguente funzione
 duplicated(df[,1]) #righe in cui il valore della prima colonna è duplicato
@@ -59,11 +59,20 @@ dim(dataBA2)
 
 #righe da rimuovere dall'intero dataset
 dataBA2 <- dataBA2[order(dataBA2$CodCliente),] #gli ID dei clieni devono essere crescenti per far funzionare il metodo di pulizia
-dim(dataBA2[duplicated(dataBA2[,c(2,3)]),])
-# 419140 righe da rimuovere, e non sono neanche tutte, perchè non sono state eliminate
+dim(dataBA2[duplicated(dataBA2[,c(2,3,8)]),])
+# 57887 righe da rimuovere, e non sono neanche tutte, perchè non sono state eliminate
 #tutte quelle righe dove gli abbonamenti sono stati timbrati ad una distanza in minuti
 #maggiore di 0. Comunque, anche tralasciando questi ultimi casi, avremmo effettivamente
-#solo 545085 - 419140 = 125945 ingressi "validi" e mi corregga se sbaglio, si potranno 
+#545085 - 57887 = 487198 ingressi "validi" e mi corregga se sbaglio, si potranno 
 #usare solo questi ultimi per fare rispondere ai 3 punti dato che sarebbe erroneo
 #attribuire le altre entrate ai proprietari dell'abbonamento
 
+#per rimuovere le righe dal df
+to_remove <- duplicated(df[,c(2,3)])
+to_keep <- !to_remove
+dim(df[to_keep,])
+
+#applicando a dataBA2
+to_remove <- duplicated(dataBA2[,c(2,3,8)])#la colonna 8 va agginta per discriminare di casi in cui due utenti diversi entrino nello stesso minuto
+to_keep <- !to_remove
+dataBA2 <- dataBA2[to_keep,]
