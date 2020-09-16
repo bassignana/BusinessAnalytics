@@ -1,2 +1,2 @@
 # BusinessAnalytics
-The code can be found [here](../bassignana/customer-base-analysis-and-predictive-modelling/), the report [here](../bassignana/customer-base-analysis-and-predictive-modelling/)
+The code can be found [here](../bassignana/customer-base-analysis-and-predictive-modelling/Museum’s card customer base analysis and predictive modelling.R), the report [here](../bassignana/customer-base-analysis-and-predictive-modelling/)
